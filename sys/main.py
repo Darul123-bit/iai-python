@@ -1,40 +1,74 @@
 # Ici nous aurons un système de reservation de billets
+# Ajout des bibliothèques de python
 import math as m
 import sys
 from datetime import datetime
 
-def verifAge(age):
-    if age < 12:
-        print("Vous n'êtes pas élégible")
-        print("Le film est déconseillé au moins de 12 ans")
-        verdict = False
-    else:
-        verdict = True
-    return verdict
+# Déclaration de variables
 
-print("Bonjour bienvenu au service de reservation")
-ageEntree = int(input("Veuillez enter votre âge : "))
+age = 0
 estEtudiant = False
-if verifAge(ageEntree):
-    print("Vous êtes éligible")
-    # ici nous allons vérifier l'heure
-    estEtudianT = input("Êtes-vous etudiant(e) ? Si oui taper 'O' : ")
-    if estEtudianT == 'o' or estEtudianT == 'O':
-        estEtudiant = True
-    heureActuelle = datetime.now().hour
-    if (0 < heureActuelle < 12):
-        if estEtudiant:
-            print("Vous avez une réduction de 2500 F CFA")
-            print("Vous avez à payer 2500 F CFA")
-        else:
-            print("Vous avez une réduction de 1000 F CFA")
-            print("Vous aurez à payer 3000 F CFA pour votre ticket")
 
-        
+# Fonction de vérification de l'âge
+
+def verifAge(nombre):
+    if (age <= 0):
+        retour = False
+    elif (age <= 12):
+        retour = False
     else:
-        if estEtudiant:
-            print("Vous aurez à payer 3500 F CFA")
-        else:
-            print("Vous aurez à payer 4000 F CFA pour votre ticket")
+        retour = True
+
+    return retour
+
+# Affichage de début du programme
+
+print("****************************************************")
+print("Bienvenu(e) sur la platforme de reservation de CANAL\nOLYMPIA.")
+print("****************************************************")
+
+
+
+# Boucle principal de la fonction
+restart = True
+
+while (restart):
+    age = int(input("Veuillez entrer votre âge : "))
+
+    # On affecte l'âge à 'conditionAge'
+    conditionAge = verifAge(age)
+    date = datetime.now().hour
+
+    # On vérifie d'abord l'âge
+    if (conditionAge):
+        # On vérifie l'heure de reservation
+        datE = input("Veuillez entrer l'heure s'il s'agit d'une reservation\nSinon laisser le champ vide : ")
+
+        if (datE == ''):
+            pass
+            
+        elif (datE != ''):
+            if (datE < 12):
+                if (estEtudiant):
+                    print("Vous avez une double réduction donc \nvous aurez à payer 2500 FCFA")
+                else:
+                    print("Vous avez une réduction de 1000 FCFA")
+                    print("Vous aurez donc à payer 4000 FCFA")
+            elif (12 < datE < 20):
+                if (estEtudiant):
+                    print("Vous avez une réduction de 1500 FCFA")
+                    print("Vous aurez donc à payer une somme de 3500 FCFA")
+                else:
+                    print("Vous devez payer 5000 FCFA")
+
+
+    # Elaboration de la condition de fin
+    endCondition = input("Taper 'q' pour quitter et toute autre chose pour reprendre : ")
+    if (endCondition == 'q' or endCondition == 'Q'):
+        restart = False
+
+    # Fin de la boucle
+
+
 
 
